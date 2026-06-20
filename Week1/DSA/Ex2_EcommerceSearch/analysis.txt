@@ -1,0 +1,50 @@
+1. Understand Asymptotic Notation:
+
+Big O Notation:
+Big O notation describes the upper bound of an algorithm's running time, helping us
+understand its worst-case scenario. It expresses how the runtime grows as a function
+of input size (n). For example, O(n) means runtime grows linearly with input size,
+while O(log n) means it grows much slower, halving the problem with each step.
+
+Best, Average, and Worst-Case Scenarios:
+Best Case: The scenario where the algorithm performs the minimum number of operations.
+For linear search, best case is O(1) when the target is the first element.
+For binary search, best case is also O(1) when the target is exactly at the midpoint.
+
+Average Case: The expected number of operations over all possible inputs.
+For linear search, average case is O(n/2), simplified to O(n).
+For binary search, average case is O(log n).
+
+Worst Case: The maximum number of operations the algorithm may need.
+For linear search, worst case is O(n) — element is at the end or not present.
+For binary search, worst case is O(log n) — element is at the boundary of the search range.
+
+2. Analysis:
+
+Time Complexity Comparison:
+
+Linear Search:
+- Best Case:    O(1)
+- Average Case: O(n)
+- Worst Case:   O(n)
+
+Binary Search:
+- Best Case:    O(1)
+- Average Case: O(log n)
+- Worst Case:   O(log n)
+
+Suitability for This E-Commerce Platform:
+Linear Search is simple and works on unsorted data. However, its O(n) time complexity
+makes it unsuitable for large product catalogs where performance matters.
+
+Binary Search is significantly faster at O(log n), but requires the array to be sorted
+beforehand. Sorting costs O(n log n) upfront, but if search operations are frequent,
+this one-time cost is worth it.
+
+For an e-commerce platform with thousands of products and frequent user searches,
+binary search is more suitable. The initial sort cost is outweighed by the consistent
+O(log n) performance on every subsequent search.
+
+Written By: Asmet Ranjan Sahoo
+College: KIIT University
+Email: asmetranjan25@gmail.com
