@@ -1,0 +1,43 @@
+1. Understand Search Algorithms:
+
+Linear Search:
+Scans each element in the array one by one from the beginning until the target
+is found or the end is reached. Works on both sorted and unsorted data.
+Simple to implement but slow for large datasets.
+
+Binary Search:
+Works only on sorted arrays. Repeatedly divides the search space in half by
+comparing the target with the middle element. If the target is smaller, search
+the left half; if larger, search the right half. Much faster than linear search
+for large datasets.
+
+2. Analysis:
+
+Time Complexity Comparison:
+
+Linear Search:
+- Best Case:    O(1) — target is the first element
+- Average Case: O(n) — target is somewhere in the middle on average
+- Worst Case:   O(n) — target is the last element or not present
+
+Binary Search:
+- Best Case:    O(1) — target is exactly at the midpoint
+- Average Case: O(log n) — search space is halved at each step
+- Worst Case:   O(log n) — target is at the boundary of search range
+
+When to Use Each Algorithm:
+
+Linear Search:
+- When the dataset is small (under a few hundred elements).
+- When the data is unsorted and sorting is too costly.
+- When the search is a one-time operation and setup overhead must be avoided.
+
+Binary Search:
+- When the dataset is large and sorted (or can be sorted once upfront).
+- When search operations are frequent — the O(log n) cost pays off quickly.
+- For a library system with thousands of books, binary search by title is far
+  more efficient once books are sorted alphabetically.
+
+Written By: Asmet Ranjan Sahoo
+College: KIIT University
+Email: asmetranjan25@gmail.com
