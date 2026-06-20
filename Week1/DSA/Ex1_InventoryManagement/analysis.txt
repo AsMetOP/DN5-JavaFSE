@@ -1,0 +1,36 @@
+1. Understand the Problem:
+
+Why Data Structures and Algorithms are Essential:
+In a warehouse inventory system, thousands of products need to be stored, retrieved,
+updated, and deleted efficiently. Without proper data structures, even simple operations
+like finding a product would require scanning every record one by one, which becomes
+extremely slow as the inventory grows. DSA allows us to organize data in ways that
+minimize time and memory usage.
+
+Types of Data Structures Suitable for This Problem:
+- HashMap: Allows O(1) average time for add, update, and delete using productId as key.
+  Best choice when fast lookups by ID are the priority.
+- ArrayList: Maintains insertion order and allows O(1) add at end, but O(n) search and delete.
+  Better when order matters or iteration is frequent.
+- TreeMap: Keeps keys sorted, O(log n) for all operations.
+  Useful when products need to be listed in sorted order by ID.
+
+We chose HashMap because product lookups by ID are the most frequent operation
+in a warehouse system, and O(1) average performance is optimal.
+
+2. Analysis:
+
+Time Complexity of Each Operation (HashMap):
+- Add (put):     O(1) average — directly hashes the key and stores the value
+- Update (get + modify): O(1) average — retrieves by key and updates in place
+- Delete (remove): O(1) average — hashes the key and removes the entry
+
+How to Optimize:
+- Use an initial capacity for HashMap if the number of products is known in advance
+  to avoid rehashing: new HashMap<>(initialCapacity, 0.75f)
+- If range-based queries (e.g., products with price between X and Y) are needed,
+  a TreeMap would be more suitable despite its O(log n) cost per operation.
+
+Written By: Asmet Ranjan Sahoo
+College: KIIT University
+Email: asmetranjan25@gmail.com
