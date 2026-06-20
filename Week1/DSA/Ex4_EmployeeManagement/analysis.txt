@@ -1,0 +1,40 @@
+1. Understand Array Representation:
+
+How Arrays are Represented in Memory:
+An array stores elements in contiguous (adjacent) memory locations. When you declare
+an array of size n, the system allocates n blocks of memory next to each other.
+Each element is accessed using its index, and since the base address is known,
+any element can be reached in O(1) time using: address = base + (index * element_size).
+
+Advantages of Arrays:
+- O(1) random access by index — fastest possible retrieval when index is known.
+- Simple and memory-efficient — no extra pointers or overhead like linked lists.
+- Cache-friendly — contiguous memory means CPU cache can prefetch elements efficiently.
+- Easy to iterate — straightforward traversal with a simple loop.
+
+2. Analysis:
+
+Time Complexity of Each Operation:
+- Add (at end):   O(1) — just place element at the next available index
+- Search:         O(n) — must scan elements one by one to find a match by ID
+- Traverse:       O(n) — visits every element once
+- Delete:         O(n) — requires shifting all elements after the deleted one left by one
+
+Limitations of Arrays and When to Use Them:
+- Fixed size: Once declared, size cannot change. If more employees are added than
+  the capacity, the array is full and no more can be inserted.
+- Costly deletion: Deleting an element from the middle requires shifting all
+  subsequent elements, making it O(n).
+- No built-in search optimization: Without sorting, every search is O(n).
+
+Arrays are best used when:
+- The number of elements is known and fixed in advance.
+- Frequent access by index is needed (e.g., accessing employee by position).
+- Memory efficiency and cache performance are priorities.
+
+For dynamic employee management where records are frequently added or removed,
+data structures like ArrayList or LinkedList would be more appropriate.
+
+Written By: Asmet Ranjan Sahoo
+College: KIIT University
+Email: asmetranjan25@gmail.com
