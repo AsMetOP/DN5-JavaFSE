@@ -1,0 +1,47 @@
+1. Understand Recursive Algorithms:
+
+Concept of Recursion:
+Recursion is a technique where a function calls itself to solve a smaller version
+of the same problem. Every recursive function has two parts:
+- Base case: The condition where recursion stops and a direct value is returned.
+- Recursive case: The function calls itself with a reduced version of the problem.
+
+Recursion simplifies certain problems by breaking them into identical subproblems.
+Financial forecasting is a natural fit — predicting value after n years is the same
+as predicting after 1 year, then applying the same logic to the result for n-1 years.
+
+For example: futureValue(10000, 0.08, 5) breaks down as:
+futureValue(10800, 0.08, 4) → futureValue(11664, 0.08, 3) → ... → futureValue(value, 0.08, 0)
+At years = 0, the base case returns the final compounded value.
+
+2. Analysis:
+
+Time Complexity:
+- Our recursive algorithm makes exactly n recursive calls, one for each year.
+- Each call does a constant amount of work (one multiplication).
+- Time Complexity: O(n) where n is the number of years.
+- Space Complexity: O(n) due to the call stack — each recursive call occupies
+  a stack frame until the base case is reached.
+
+How to Optimize the Recursive Solution:
+Memoization:
+If the same subproblem is computed multiple times (e.g., in a tree of recursive calls),
+results can be cached to avoid recomputation. In our linear recursion this is not needed
+since each year is computed exactly once, but for branching recursive forecasts
+(multiple growth paths) memoization would significantly reduce computation.
+
+Iterative Approach:
+The recursive solution can be converted to an iterative one using a simple loop,
+which reduces space complexity from O(n) to O(1) by eliminating the call stack:
+
+  double value = presentValue;
+  for (int i = 0; i < years; i++) {
+      value = value * (1 + growthRate);
+  }
+
+For very large values of n (e.g., 10000+ years), the iterative approach is
+preferred to avoid stack overflow errors from deep recursion.
+
+Written By: Asmet Ranjan Sahoo
+College: KIIT University
+Email: asmetranjan25@gmail.com
