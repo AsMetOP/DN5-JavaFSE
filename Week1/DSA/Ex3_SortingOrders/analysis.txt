@@ -1,0 +1,51 @@
+1. Understand Sorting Algorithms:
+
+Bubble Sort:
+Repeatedly compares adjacent elements and swaps them if they are in the wrong order.
+Each pass pushes the largest unsorted element to its correct position at the end.
+Simple to understand but very inefficient for large datasets.
+Time Complexity: O(n²) in average and worst case.
+
+Insertion Sort:
+Builds the sorted array one element at a time by picking each element and inserting
+it into its correct position among the already-sorted elements.
+Efficient for small or nearly sorted datasets.
+Time Complexity: O(n²) worst case, O(n) best case (already sorted).
+
+Quick Sort:
+Picks a pivot element and partitions the array into two halves — elements smaller
+than pivot on the left, larger on the right — then recursively sorts each half.
+One of the fastest general-purpose sorting algorithms in practice.
+Time Complexity: O(n log n) average, O(n²) worst case (rare, depends on pivot choice).
+
+Merge Sort:
+Divides the array into halves, recursively sorts each half, then merges them back.
+Guarantees O(n log n) in all cases. Stable sort but requires extra memory O(n).
+Time Complexity: O(n log n) in all cases.
+
+2. Analysis:
+
+Performance Comparison:
+
+Bubble Sort:
+- Best Case:    O(n)  [with optimization flag for no swaps]
+- Average Case: O(n²)
+- Worst Case:   O(n²)
+
+Quick Sort:
+- Best Case:    O(n log n)
+- Average Case: O(n log n)
+- Worst Case:   O(n²)  [rare, occurs when pivot is always min or max]
+
+Why Quick Sort is Generally Preferred Over Bubble Sort:
+Bubble Sort performs n*(n-1)/2 comparisons in all non-trivial cases, making it
+extremely slow for large datasets. Quick Sort, by contrast, divides the problem
+in half at each recursive step, resulting in far fewer comparisons on average.
+In practice, Quick Sort is 10-100x faster than Bubble Sort for large arrays.
+Quick Sort also sorts in-place with O(log n) stack space, while Merge Sort
+requires O(n) extra memory. This makes Quick Sort the preferred choice for
+high-volume order sorting on an e-commerce platform.
+
+Written By: Asmet Ranjan Sahoo
+College: KIIT University
+Email: asmetranjan25@gmail.com
