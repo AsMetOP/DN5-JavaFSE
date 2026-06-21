@@ -1,0 +1,43 @@
+1. Understand Linked Lists:
+
+Types of Linked Lists:
+
+Singly Linked List:
+Each node contains data and a single pointer (next) pointing to the next node.
+Traversal is only possible in one direction — forward.
+Memory efficient as each node only stores one extra pointer.
+Used in this implementation for task management.
+
+Doubly Linked List:
+Each node contains data and two pointers — next (forward) and prev (backward).
+Traversal is possible in both directions.
+Deletion is easier since we have direct access to the previous node.
+Uses more memory due to the extra pointer per node.
+
+Circular Linked List:
+The last node's next pointer points back to the head instead of null.
+Useful for round-robin scheduling or circular buffer implementations.
+
+2. Analysis:
+
+Time Complexity of Each Operation (Singly Linked List):
+- Add (at end):  O(n) — must traverse to the last node to append
+- Add (at head): O(1) — just update head pointer
+- Search:        O(n) — must traverse from head to find the target
+- Traverse:      O(n) — visits every node once
+- Delete:        O(n) — must find the node before the target to update its next pointer
+
+Advantages of Linked Lists Over Arrays for Dynamic Data:
+- Dynamic size: Linked lists grow and shrink at runtime without declaring a fixed size.
+  No wasted memory from over-allocation, no overflow from under-allocation.
+- Efficient insertion/deletion at head: O(1) compared to O(n) for arrays which
+  require shifting.
+- No memory reallocation: Arrays need to copy all data to a new block when resized.
+  Linked lists simply allocate a new node anywhere in memory.
+
+Linked lists are ideal for task management systems where tasks are frequently
+added and removed and the total count is unpredictable.
+
+Written By: Asmet Ranjan Sahoo
+College: KIIT University
+Email: asmetranjan25@gmail.com

@@ -17,3 +17,4 @@ BEGIN
     COMMIT;
 END;
 /
+--Discount applied for: Aryan Samantray | New Rate: 6%

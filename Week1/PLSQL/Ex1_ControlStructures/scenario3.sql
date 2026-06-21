@@ -9,3 +9,4 @@ BEGIN
     END LOOP;
 END;
 /
+-- Output :  Reminder: Dear Aryan Samantray, your loan (ID: 2) is due on <SYSDATE+15>. Please arrange payment.

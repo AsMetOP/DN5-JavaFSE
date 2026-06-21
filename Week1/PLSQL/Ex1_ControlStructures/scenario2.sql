@@ -10,3 +10,4 @@ BEGIN
     COMMIT;
 END;
 /
+-- Output : Keshi Jain marked as VIP | Balance: 15000
