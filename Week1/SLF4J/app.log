@@ -1,0 +1,11 @@
+03:20:18.861 [LoggingExample.main()] ERROR LoggingExample - This is an error message
+03:20:18.862 [LoggingExample.main()] WARN  LoggingExample - This is a warning message
+03:20:20.879 [ParameterizedLogging.main()] INFO  ParameterizedLogging - User: Asmet Ranjan Sahoo
+03:20:20.882 [ParameterizedLogging.main()] INFO  ParameterizedLogging - User: Asmet Ranjan Sahoo is 21 years old
+03:20:20.882 [ParameterizedLogging.main()] DEBUG ParameterizedLogging - Account balance for Asmet Ranjan Sahoo: 15000.5
+03:20:20.882 [ParameterizedLogging.main()] WARN  ParameterizedLogging - Low balance warning for user: Asmet Ranjan Sahoo
+03:20:20.883 [ParameterizedLogging.main()] ERROR ParameterizedLogging - Transaction failed for user: Asmet Ranjan Sahoo with balance: 15000.5
+03:20:23.385 [AppenderLogging.main()] DEBUG AppenderLogging - Debug message from Asmet Ranjan Sahoo
+03:20:23.387 [AppenderLogging.main()] INFO  AppenderLogging - Info message - application started
+03:20:23.388 [AppenderLogging.main()] WARN  AppenderLogging - Warning - Keshi Jain account balance low
+03:20:23.388 [AppenderLogging.main()] ERROR AppenderLogging - Error - transaction failed for Aryan Samantray
