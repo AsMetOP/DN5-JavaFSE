@@ -33,3 +33,10 @@ EXCEPTION
         DBMS_OUTPUT.PUT_LINE('Blocked: ' || SQLERRM);
 END;
 /
+
+-- Output : 
+-- Valid deposit inserted.
+-- Blocked: ORA-20003: Withdrawal exceeds account balance.
+-- ORA-06512: at "ASMETRANJAN25_SCHEMA_U9FSH.CHECKTRANSACTIONRULES", line 7
+-- ORA-04088: error during execution of trigger 'ASMETRANJAN25_SCHEMA_U9FSH.CHECKTRANSACTIONRULES'
+

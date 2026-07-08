@@ -17,4 +17,4 @@ BEGIN
     COMMIT;
 END;
 /
---Discount applied for: Aryan Samantray | New Rate: 6%
+-- Output : Discount applied for: Aryan Samantray | New Rate: 6%
