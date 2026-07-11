@@ -1,0 +1,87 @@
+# Hands-on 1 - Introduction to HQL and JPQL
+
+## What is HQL?
+
+HQL (Hibernate Query Language) is Hibernate's own query language. Instead of writing queries against database tables and columns, HQL is written against Java entity classes and their fields.
+
+Example entity:
+
+```java
+@Entity
+public class Employee {
+    private int id;
+    private String name;
+    private double salary;
+}
+```
+
+An HQL query on this entity looks like:
+
+```
+FROM Employee
+```
+
+`Employee` here refers to the Java class, not a table called `employee`.
+
+## What is JPQL?
+
+JPQL (Java Persistence Query Language) is the standard query language defined by the JPA specification. It works the same way as HQL - against entity classes and their attributes, not raw tables - but since it's part of the JPA standard, any JPA provider (Hibernate, EclipseLink, OpenJPA) supports it, not just Hibernate.
+
+## Why object-based instead of table-based?
+
+SQL:
+```sql
+SELECT * FROM employee;
+```
+
+HQL/JPQL:
+```
+SELECT e FROM Employee e
+```
+
+The SQL version depends on the actual table structure. The HQL/JPQL version depends on the Java class structure. If the underlying table name changes but the entity mapping is updated accordingly, the query still reads the same - the query is tied to the object model, not the schema.
+
+## JPQL is a subset of HQL
+
+Hibernate implements everything JPQL requires, plus some extra features of its own. That means:
+
+- Every valid JPQL query is also a valid HQL query.
+- Not every HQL query is valid JPQL, since some HQL features go beyond the JPA spec.
+
+## Supported operations
+
+Both HQL and JPQL support:
+
+- **SELECT** - `SELECT e FROM Employee e`
+- **UPDATE** - `UPDATE Employee e SET e.salary = 50000 WHERE e.id = 1`
+- **DELETE** - `DELETE FROM Employee e WHERE e.id = 1`
+
+HQL additionally supports **INSERT**, which JPQL does not:
+
+```
+INSERT INTO Employee(name, salary)
+SELECT e.name, e.salary FROM OldEmployee e
+```
+
+## Quick comparison
+
+| | SQL | HQL / JPQL |
+|---|---|---|
+| Works against | database tables | Java entity classes |
+| Uses | column names | entity field names |
+| Dependent on | database schema | object model |
+
+| | HQL | JPQL |
+|---|---|---|
+| Provided by | Hibernate | JPA standard |
+| INSERT support | Yes | No |
+| Portability | Hibernate-specific | works with any JPA provider |
+
+## Key takeaways
+
+- HQL and JPQL let you query using entity class names and field names instead of table/column names.
+- JPQL is a strict subset of HQL - Hibernate adds extra capability on top.
+- SELECT, UPDATE, DELETE are supported by both; INSERT is Hibernate-only.
+- Because the query is tied to the entity model rather than the schema, it's more portable and maintainable as the application evolves.
+
+Reference: https://docs.jboss.org/hibernate/orm/4.3/devguide/en-US/html/ch11.html
