@@ -1,4 +1,4 @@
-package com.cognizant.hqljpql.service;
+package com.cognizant.hqljpql.services;
 
 import java.util.List;
 
@@ -16,5 +16,17 @@ public class EmployeeService {
 
     public List<Employee> getAllPermanentEmployees() {
         return employeeRepository.getAllPermanentEmployees();
+    }
+
+    public double getAverageSalary() {
+        return employeeRepository.getAverageSalary();
+    }
+
+    public double getAverageSalary(int id) {
+        return employeeRepository.getAverageSalary(id);
+    }
+
+    public List<Employee> getAllEmployeesNative() {
+        return employeeRepository.getAllEmployeesNative();
     }
 }

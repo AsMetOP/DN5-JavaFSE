@@ -9,7 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 
 import com.cognizant.hqljpql.model.Employee;
-import com.cognizant.hqljpql.service.EmployeeService;
+import com.cognizant.hqljpql.services.EmployeeService;
 
 @SpringBootApplication
 public class HqlJpqlApplication {
@@ -23,13 +23,31 @@ public class HqlJpqlApplication {
         employeeService = context.getBean(EmployeeService.class);
 
         testGetAllPermanentEmployees();
+        testGetAverageSalary();
+        testGetAllEmployeesNative();
     }
 
     private static void testGetAllPermanentEmployees() {
-        LOGGER.info("Start");
+        LOGGER.info("Start testGetAllPermanentEmployees");
         List<Employee> employees = employeeService.getAllPermanentEmployees();
         LOGGER.debug("Permanent Employees:{}", employees);
         employees.forEach(e -> LOGGER.debug("Skills:{}", e.getSkillList()));
-        LOGGER.info("End");
+        LOGGER.info("End testGetAllPermanentEmployees");
+    }
+
+    private static void testGetAverageSalary() {
+        LOGGER.info("Start testGetAverageSalary");
+        double overallAverage = employeeService.getAverageSalary();
+        LOGGER.debug("Overall average salary:{}", overallAverage);
+        double departmentAverage = employeeService.getAverageSalary(1);
+        LOGGER.debug("Department 1 average salary:{}", departmentAverage);
+        LOGGER.info("End testGetAverageSalary");
+    }
+
+    private static void testGetAllEmployeesNative() {
+        LOGGER.info("Start testGetAllEmployeesNative");
+        List<Employee> employees = employeeService.getAllEmployeesNative();
+        LOGGER.debug("All Employees (native query):{}", employees);
+        LOGGER.info("End testGetAllEmployeesNative");
     }
 }
