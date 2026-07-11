@@ -1,0 +1,51 @@
+# Hands-on 6 - Criteria Query
+
+## The problem it solves
+
+Think about a shopping site's search filters - customer rating, RAM, storage, CPU, OS, weight, price range. A user might apply just one of these, or five of them, in any combination, and the set of active filters is only known once the user has clicked things on the page.
+
+If we tried to handle this with fixed HQL strings, we'd need a separate query for every possible combination of filters:
+
+```
+WHERE ram = 16
+WHERE ram = 16 AND brand = 'Dell'
+WHERE ram = 8 AND price < 70000 AND os = 'Windows'
+```
+
+That's not maintainable - the number of combinations explodes as more filters are added.
+
+## What Criteria Query is
+
+Criteria Query is Hibernate/JPA's way of building a query out of Java objects instead of a query string. Conditions get added one at a time, in code, only for the filters that are actually active - so the WHERE clause is assembled at runtime based on what the user picked.
+
+## How it works, at a high level
+
+1. Create a `CriteriaBuilder`.
+2. Create a `CriteriaQuery` for the entity being searched.
+3. Define the root entity (the "FROM" of the query).
+4. Add predicates (conditions) only for the filters the user actually selected.
+5. Execute and get back a `TypedQuery` result.
+
+Since predicates are only added when a filter is present, one code path handles every combination of filters instead of needing one query per combination.
+
+## HQL vs Criteria Query
+
+| HQL | Criteria Query |
+|---|---|
+| Query written as a fixed string | Query built programmatically |
+| Good fit for queries that don't change | Good fit for queries with optional, user-driven filters |
+| Hard to manage many optional conditions | Handles optional conditions naturally |
+
+## Why it matters
+
+- Type-safe - conditions reference entity fields directly in Java, so mistakes get caught at compile time rather than showing up as a runtime string-parsing error.
+- Avoids a combinatorial explosion of near-duplicate HQL queries.
+- Scales well as more filter options get added to a search UI, since adding a filter just means adding one more conditional predicate.
+
+## Key takeaways
+
+- Criteria Query exists specifically for dynamic, user-driven search scenarios where the filter set isn't known ahead of time.
+- It trades the simplicity of a fixed query string for flexibility and type safety.
+- Real-world search UIs (e-commerce filters, admin search panels) are the typical use case.
+
+Reference: https://docs.oracle.com/javaee/6/tutorial/doc/gjrij.html
