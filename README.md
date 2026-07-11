@@ -1,4 +1,4 @@
-<div align="center">
+<div align="center"> 
 
 <img src="https://capsule-render.vercel.app/api?type=waving&color=0:7f1d1d,100:dc2626&height=220&section=header&text=DN5%20-%20Java%20Full%20Stack%20Engineering&fontSize=42&fontColor=ffffff&fontAlignY=38&desc=Digital%20Nurture%205.0%20%7C%20Java%20FSE%20Angular%20Track&descAlignY=58&descSize=18&animation=fadeIn" width="100%"/>
 
