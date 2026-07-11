@@ -1,10 +1,13 @@
 package com.cognizant.countryquery.model;
 
+import java.util.Set;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -18,6 +21,9 @@ public class Skill {
 
     @Column(name = "sk_name")
     private String name;
+
+    @ManyToMany(mappedBy = "skillList")
+    private Set<Employee> employeeList;
 
     public int getId() {
         return id;
@@ -33,6 +39,14 @@ public class Skill {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Set<Employee> getEmployeeList() {
+        return employeeList;
+    }
+
+    public void setEmployeeList(Set<Employee> employeeList) {
+        this.employeeList = employeeList;
     }
 
     @Override

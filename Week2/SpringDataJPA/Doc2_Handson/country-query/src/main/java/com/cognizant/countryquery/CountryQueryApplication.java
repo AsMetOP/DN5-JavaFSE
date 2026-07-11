@@ -10,6 +10,7 @@ import org.springframework.context.ApplicationContext;
 
 import com.cognizant.countryquery.model.Department;
 import com.cognizant.countryquery.model.Employee;
+import com.cognizant.countryquery.model.Skill;
 import com.cognizant.countryquery.repository.CountryRepository;
 import com.cognizant.countryquery.repository.StockRepository;
 import com.cognizant.countryquery.service.DepartmentService;
@@ -37,7 +38,9 @@ public class CountryQueryApplication {
 
         // testGetEmployee();
         // testAddEmployee();
-        testUpdateEmployee();
+        // testUpdateEmployee();
+        // testGetDepartment();
+        testAddSkillToEmployee();
     }
 
     private static void testGetEmployee() {
@@ -45,6 +48,7 @@ public class CountryQueryApplication {
         Employee employee = employeeService.get(1);
         LOGGER.debug("Employee:{}", employee);
         LOGGER.debug("Department:{}", employee.getDepartment());
+        LOGGER.debug("Skills:{}", employee.getSkillList());
         LOGGER.info("End testGetEmployee");
     }
 
@@ -74,5 +78,25 @@ public class CountryQueryApplication {
         employeeService.save(employee);
         LOGGER.debug("Updated Employee:{}", employee);
         LOGGER.info("End testUpdateEmployee");
+    }
+
+    private static void testGetDepartment() {
+        LOGGER.info("Start testGetDepartment");
+        Department department = departmentService.get(1);
+        LOGGER.debug("Department:{}", department);
+        LOGGER.debug("EmployeeList:{}", department.getEmployeeList());
+        LOGGER.info("End testGetDepartment");
+    }
+
+    private static void testAddSkillToEmployee() {
+        LOGGER.info("Start testAddSkillToEmployee");
+        Employee employee = employeeService.get(1);
+        Skill skill = skillService.get(3);
+
+        employee.getSkillList().add(skill);
+        employeeService.save(employee);
+
+        LOGGER.debug("Employee with new skill:{}", employee.getSkillList());
+        LOGGER.info("End testAddSkillToEmployee");
     }
 }
