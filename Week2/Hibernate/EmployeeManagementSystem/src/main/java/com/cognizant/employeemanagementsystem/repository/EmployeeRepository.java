@@ -9,6 +9,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import com.cognizant.employeemanagementsystem.model.Employee;
+import com.cognizant.employeemanagementsystem.projection.EmployeeNameOnly;
+import com.cognizant.employeemanagementsystem.projection.EmployeeSummary;
 
 public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 
@@ -24,5 +26,10 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
     List<Employee> findAllOrderedByName();
 
     Page<Employee> findByNameContainingIgnoreCase(String name, Pageable pageable);
+
+    List<EmployeeNameOnly> findByDepartmentIdNot(Long departmentId);
+
+    @Query("SELECT new com.cognizant.employeemanagementsystem.projection.EmployeeSummary(e.name, e.department.name) FROM Employee e")
+    List<EmployeeSummary> getEmployeeSummaries();
 
 }

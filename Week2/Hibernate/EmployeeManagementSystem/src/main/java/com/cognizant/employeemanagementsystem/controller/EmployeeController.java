@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cognizant.employeemanagementsystem.model.Employee;
+import com.cognizant.employeemanagementsystem.projection.EmployeeSummary;
 import com.cognizant.employeemanagementsystem.repository.EmployeeRepository;
 import com.cognizant.employeemanagementsystem.service.EmployeeService;
 
@@ -65,5 +66,10 @@ public class EmployeeController {
             @RequestParam(defaultValue = "name") String sortBy) {
         Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy).ascending());
         return employeeRepository.findByNameContainingIgnoreCase(name, pageable);
+    }
+
+    @GetMapping("/summaries")
+    public List<EmployeeSummary> getSummaries() {
+        return employeeRepository.getEmployeeSummaries();
     }
 }
