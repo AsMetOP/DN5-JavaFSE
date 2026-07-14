@@ -36,6 +36,7 @@ public class SpringLearnApplication {
 		LOGGER.info("START");
 		ApplicationContext context = new ClassPathXmlApplicationContext("country.xml");
 		Country country = context.getBean("country", Country.class);
+		Country anotherCountry = context.getBean("country", Country.class);
 		LOGGER.debug("Country : {}", country.toString());
 		LOGGER.info("END");
 	}
