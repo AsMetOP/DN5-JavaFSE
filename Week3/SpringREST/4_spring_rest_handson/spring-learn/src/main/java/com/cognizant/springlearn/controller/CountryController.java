@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import com.cognizant.springlearn.Country;
 import com.cognizant.springlearn.service.CountryService;
@@ -45,8 +46,10 @@ public class CountryController {
 	}
 
 	@PostMapping
-	public void addCountry() {
+	public Country addCountry(@RequestBody Country country) {
 		LOGGER.info("Start");
+		LOGGER.info("Country : {}", country.toString());
+		return country;
 	}
 
 }
