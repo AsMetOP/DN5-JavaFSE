@@ -19,6 +19,7 @@ public class SpringLearnApplication {
 		LOGGER.info("START main");
 		SpringApplication.run(SpringLearnApplication.class, args);
 		displayDate();
+		displayCountry();
 		LOGGER.info("END main");
 	}
 
@@ -28,6 +29,14 @@ public class SpringLearnApplication {
 		SimpleDateFormat dateFormat = context.getBean("dateFormat", SimpleDateFormat.class);
 		String date = dateFormat.format(new Date());
 		LOGGER.debug(date);
+		LOGGER.info("END");
+	}
+
+	public static void displayCountry() {
+		LOGGER.info("START");
+		ApplicationContext context = new ClassPathXmlApplicationContext("country.xml");
+		Country country = context.getBean("country", Country.class);
+		LOGGER.debug("Country : {}", country.toString());
 		LOGGER.info("END");
 	}
 
