@@ -1,47 +1,88 @@
 package com.cognizant.springlearn;
 
+import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+
 public class Employee {
 
-    private int id;
-    private String name;
-    private String department;
-    private double salary;
+	@NotNull
+	private Integer id;
 
-    public int getId() {
-        return id;
-    }
+	@NotNull
+	@NotBlank
+	@Size(min = 1, max = 30)
+	private String name;
 
-    public void setId(int id) {
-        this.id = id;
-    }
+	private String department;
 
-    public String getName() {
-        return name;
-    }
+	@NotNull
+	@Min(0)
+	private Double salary;
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	@NotNull
+	private Boolean permanent;
 
-    public String getDepartment() {
-        return department;
-    }
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+	private Date dateOfBirth;
 
-    public void setDepartment(String department) {
-        this.department = department;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public double getSalary() {
-        return salary;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public void setSalary(double salary) {
-        this.salary = salary;
-    }
+	public String getName() {
+		return name;
+	}
 
-    @Override
-    public String toString() {
-        return "Employee [id=" + id + ", name=" + name + ", department=" + department + ", salary=" + salary + "]";
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(String department) {
+		this.department = department;
+	}
+
+	public Double getSalary() {
+		return salary;
+	}
+
+	public void setSalary(Double salary) {
+		this.salary = salary;
+	}
+
+	public Boolean getPermanent() {
+		return permanent;
+	}
+
+	public void setPermanent(Boolean permanent) {
+		this.permanent = permanent;
+	}
+
+	public Date getDateOfBirth() {
+		return dateOfBirth;
+	}
+
+	public void setDateOfBirth(Date dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
+	}
+
+	@Override
+	public String toString() {
+		return "Employee [id=" + id + ", name=" + name + ", department=" + department + ", salary=" + salary
+				+ ", permanent=" + permanent + ", dateOfBirth=" + dateOfBirth + "]";
+	}
 
 }

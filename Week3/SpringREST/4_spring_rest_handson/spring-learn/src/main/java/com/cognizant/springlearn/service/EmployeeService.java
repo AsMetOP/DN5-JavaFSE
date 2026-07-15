@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.cognizant.springlearn.Employee;
 import com.cognizant.springlearn.dao.EmployeeDao;
+import com.cognizant.springlearn.service.exception.EmployeeNotFoundException;
 
 @Service
 public class EmployeeService {
@@ -18,6 +19,10 @@ public class EmployeeService {
 	@Transactional
 	public ArrayList<Employee> getAllEmployees() {
 		return employeeDao.getAllEmployees();
+	}
+
+	public void updateEmployee(Employee employee) throws EmployeeNotFoundException {
+		employeeDao.updateEmployee(employee);
 	}
 
 }
