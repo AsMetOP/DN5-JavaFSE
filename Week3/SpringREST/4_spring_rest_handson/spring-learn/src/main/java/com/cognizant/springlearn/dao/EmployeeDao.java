@@ -34,4 +34,14 @@ public class EmployeeDao {
 		throw new EmployeeNotFoundException("Employee not found");
 	}
 
+	public void deleteEmployee(Integer id) throws EmployeeNotFoundException {
+		for (int i = 0; i < EMPLOYEE_LIST.size(); i++) {
+			if (EMPLOYEE_LIST.get(i).getId().equals(id)) {
+				EMPLOYEE_LIST.remove(i);
+				return;
+			}
+		}
+		throw new EmployeeNotFoundException("Employee not found");
+	}
+
 }
