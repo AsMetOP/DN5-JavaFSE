@@ -4,9 +4,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -27,15 +29,12 @@ public class SecurityConfig {
 
 	@Bean
 	public UserDetailsService userDetailsService(PasswordEncoder passwordEncoder) {
-		AuthenticationManagerBuilder auth = null;
 		InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
-		manager.createUser(org.springframework.security.core.userdetails.User
-				.withUsername("admin")
+		manager.createUser(User.withUsername("admin")
 				.password(passwordEncoder.encode("pwd"))
 				.roles("ADMIN")
 				.build());
-		manager.createUser(org.springframework.security.core.userdetails.User
-				.withUsername("user")
+		manager.createUser(User.withUsername("user")
 				.password(passwordEncoder.encode("pwd"))
 				.roles("USER")
 				.build());
@@ -43,15 +42,21 @@ public class SecurityConfig {
 	}
 
 	@Bean
-	public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
+	public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
+		return config.getAuthenticationManager();
+	}
+
+	@Bean
+	public SecurityFilterChain filterChain(HttpSecurity httpSecurity, AuthenticationManager authenticationManager)
+			throws Exception {
 		httpSecurity
 			.csrf(csrf -> csrf.disable())
 			.httpBasic(basic -> {})
 			.authorizeHttpRequests(auth -> auth
-				.requestMatchers("/countries").hasRole("USER")
 				.requestMatchers("/authenticate").hasAnyRole("USER", "ADMIN")
 				.anyRequest().authenticated()
-			);
+			)
+			.addFilter(new JwtAuthorizationFilter(authenticationManager));
 		return httpSecurity.build();
 	}
 
