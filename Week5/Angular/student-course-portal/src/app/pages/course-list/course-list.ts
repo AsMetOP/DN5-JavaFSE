@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CourseCard } from '../../components/course-card/course-card';
+import { Highlight } from '../../directives/highlight';
 
 @Component({
   selector: 'app-course-list',
-  imports: [CommonModule, CourseCard],
+  imports: [CommonModule, CourseCard, Highlight],
   templateUrl: './course-list.html',
   styleUrl: './course-list.css',
 })

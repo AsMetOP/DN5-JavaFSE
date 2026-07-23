@@ -1,5 +1,7 @@
 import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Highlight } from '../../directives/highlight';
+import { CreditLabelPipe } from '../../pipes/credit-label-pipe';
 
 interface Course {
   id: number;
@@ -11,7 +13,7 @@ interface Course {
 
 @Component({
   selector: 'app-course-card',
-  imports: [CommonModule],
+  imports: [CommonModule, Highlight, CreditLabelPipe],
   templateUrl: './course-card.html',
   styleUrl: './course-card.css',
 })
@@ -29,9 +31,6 @@ export class CourseCard implements OnChanges {
     }
   }
 
-  // Getter keeps the template clean - the template just binds to `cardClasses`
-  // instead of repeating the conditional logic inline, making the HTML easier
-  // to read and the logic easier to unit test in isolation.
   get cardClasses() {
     return {
       'card--enrolled': this.isEnrolled,

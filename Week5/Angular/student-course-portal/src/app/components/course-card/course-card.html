@@ -1,7 +1,7 @@
-<div [ngClass]="cardClasses" [ngStyle]="{ 'border-left': '4px solid ' + borderColor }">
+<div appHighlight="lightblue" [ngClass]="cardClasses" [ngStyle]="{ 'border-left': '4px solid ' + borderColor }">
   <p>Name: {{ course?.name }}</p>
   <p>Code: {{ course?.code }}</p>
-  <p>Credits: {{ course?.credits }}</p>
+  <p>Credits: {{ course?.credits | creditLabel }}</p>
   <p>ID: {{ course?.id }}</p>
 
   <span [ngSwitch]="course?.gradeStatus">
