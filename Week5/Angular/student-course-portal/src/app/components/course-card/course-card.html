@@ -1,4 +1,4 @@
-<div>
+<div [ngClass]="cardClasses" [ngStyle]="{ 'border-left': '4px solid ' + borderColor }">
   <p>Name: {{ course?.name }}</p>
   <p>Code: {{ course?.code }}</p>
   <p>Credits: {{ course?.credits }}</p>
@@ -11,4 +11,9 @@
   </span>
 
   <button (click)="enrollRequested.emit(course.id)">Enroll</button>
+  <button (click)="toggleExpand()">Show Details</button>
+
+  <div *ngIf="isExpanded">
+    <p>Extra details for {{ course?.name }} go here.</p>
+  </div>
 </div>
