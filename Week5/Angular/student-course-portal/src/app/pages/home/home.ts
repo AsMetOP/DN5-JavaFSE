@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { CourseService } from '../../services/course';
 
 @Component({
   selector: 'app-home',
@@ -12,6 +13,9 @@ export class Home implements OnInit, OnDestroy {
   isPortalActive = true;
   message = '';
   searchTerm = '';
+  courseCount = 0;
+
+  constructor(private courseService: CourseService) {}
 
   onEnrollClick() {
     this.message = 'Enrollment opened!';
@@ -19,6 +23,7 @@ export class Home implements OnInit, OnDestroy {
 
   ngOnInit() {
     console.log('HomeComponent initialised — courses loaded');
+    this.courseCount = this.courseService.getCourses().length;
   }
 
   ngOnDestroy() {
