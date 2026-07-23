@@ -10,11 +10,11 @@
 <button [disabled]="!isPortalActive" (click)="onEnrollClick()">Enroll Now</button>
 <p>{{ message }}</p>
 
-<!--
-  [property] is one-way: data flows component -> DOM only (e.g. [disabled]).
-  [(ngModel)] is two-way: data flows DOM -> component AND component -> DOM,
-  so typing in the input updates searchTerm, and changing searchTerm in code
-  would update the input too.
--->
 <input [(ngModel)]="searchTerm" placeholder="Search courses...">
 <p>Searching for: {{ searchTerm }}</p>
+
+<h3>Notification Widget A</h3>
+<app-notification></app-notification>
+
+<h3>Notification Widget B</h3>
+<app-notification></app-notification>

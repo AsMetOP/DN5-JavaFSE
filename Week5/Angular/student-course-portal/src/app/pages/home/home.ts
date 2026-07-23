@@ -1,10 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CourseService } from '../../services/course';
+import { Notification } from '../../components/notification/notification';
 
 @Component({
   selector: 'app-home',
-  imports: [FormsModule],
+  imports: [FormsModule, Notification],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
