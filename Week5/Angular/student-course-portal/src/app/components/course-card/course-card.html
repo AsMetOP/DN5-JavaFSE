@@ -1,5 +1,5 @@
 <div appHighlight="lightblue" [ngClass]="cardClasses" [ngStyle]="{ 'border-left': '4px solid ' + borderColor }">
-  <p>Name: {{ course?.name }}</p>
+  <p (click)="viewDetails()" style="cursor: pointer; text-decoration: underline;">Name: {{ course?.name }}</p>
   <p>Code: {{ course?.code }}</p>
   <p>Credits: {{ course?.credits | creditLabel }}</p>
   <p>ID: {{ course?.id }}</p>
