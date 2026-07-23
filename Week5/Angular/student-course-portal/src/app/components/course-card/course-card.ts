@@ -1,4 +1,11 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
+
+interface Course {
+  id: number;
+  name: string;
+  code: string;
+  credits: number;
+}
 
 @Component({
   selector: 'app-course-card',
@@ -7,7 +14,8 @@ import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
   styleUrl: './course-card.css',
 })
 export class CourseCard implements OnChanges {
-  @Input() course: any;
+  @Input() course!: Course;
+  @Output() enrollRequested = new EventEmitter<number>();
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['course']) {

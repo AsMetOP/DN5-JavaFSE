@@ -14,4 +14,11 @@ export class CourseList {
     { id: 2, name: 'Operating Systems', code: 'CS102', credits: 3 },
     { id: 3, name: 'Database Systems', code: 'CS103', credits: 4 },
   ];
+
+  selectedCourseId: number | null = null;
+
+  onEnroll(courseId: number) {
+    console.log('Enrolling in course: ' + courseId);
+    this.selectedCourseId = courseId;
+  }
 }
