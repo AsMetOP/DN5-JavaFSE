@@ -3,5 +3,12 @@
   <p>Code: {{ course?.code }}</p>
   <p>Credits: {{ course?.credits }}</p>
   <p>ID: {{ course?.id }}</p>
+
+  <span [ngSwitch]="course?.gradeStatus">
+    <span *ngSwitchCase="'passed'" style="color: green;">Passed</span>
+    <span *ngSwitchCase="'failed'" style="color: red;">Failed</span>
+    <span *ngSwitchCase="'pending'" style="color: grey;">Pending</span>
+  </span>
+
   <button (click)="enrollRequested.emit(course.id)">Enroll</button>
 </div>

@@ -1,15 +1,17 @@
 import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 interface Course {
   id: number;
   name: string;
   code: string;
   credits: number;
+  gradeStatus?: string;
 }
 
 @Component({
   selector: 'app-course-card',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './course-card.html',
   styleUrl: './course-card.css',
 })
