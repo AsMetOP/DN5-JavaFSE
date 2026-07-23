@@ -4,13 +4,10 @@
   <div *ngIf="courses.length > 0; else noCourses">
     <app-course-card
       *ngFor="let course of courses; let i = index; trackBy: trackByCourseId"
-      [course]="course"
-      (enrollRequested)="onEnroll($event)">
+      [course]="course">
     </app-course-card>
   </div>
   <ng-template #noCourses>
     <p>No courses available.</p>
   </ng-template>
 </div>
-
-<p *ngIf="selectedCourseId">Selected course ID: {{ selectedCourseId }}</p>

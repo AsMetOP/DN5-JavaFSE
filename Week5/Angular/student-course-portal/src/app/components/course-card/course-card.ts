@@ -1,15 +1,9 @@
-import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Highlight } from '../../directives/highlight';
 import { CreditLabelPipe } from '../../pipes/credit-label-pipe';
-
-interface Course {
-  id: number;
-  name: string;
-  code: string;
-  credits: number;
-  gradeStatus?: string;
-}
+import { EnrollmentService } from '../../services/enrollment';
+import { Course } from '../../models/course.model';
 
 @Component({
   selector: 'app-course-card',
@@ -19,10 +13,10 @@ interface Course {
 })
 export class CourseCard implements OnChanges {
   @Input() course!: Course;
-  @Input() isEnrolled = false;
-  @Output() enrollRequested = new EventEmitter<number>();
 
   isExpanded = false;
+
+  constructor(private enrollmentService: EnrollmentService) {}
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['course']) {
@@ -48,7 +42,19 @@ export class CourseCard implements OnChanges {
     }
   }
 
+  get isEnrolled(): boolean {
+    return this.enrollmentService.isEnrolled(this.course?.id);
+  }
+
   toggleExpand() {
     this.isExpanded = !this.isExpanded;
+  }
+
+  onEnrollClick() {
+    if (this.isEnrolled) {
+      this.enrollmentService.unenroll(this.course.id);
+    } else {
+      this.enrollmentService.enroll(this.course.id);
+    }
   }
 }
