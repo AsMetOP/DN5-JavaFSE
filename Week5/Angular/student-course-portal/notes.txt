@@ -1,0 +1,19 @@
+angular.json - workspace config: build/serve/test settings, file paths, budgets, styles/scripts to include
+
+tsconfig.json - base TypeScript compiler settings shared across the whole project
+
+tsconfig.app.json - TypeScript settings specific to building the app (extends tsconfig.json)
+
+package.json - lists project dependencies (Angular packages, RxJS, etc.) and npm scripts (ng serve, ng build, ng test)
+
+src/main.ts - entry point of the app; bootstraps the root component (App) using bootstrapApplication()
+
+src/app/app.config.ts - standalone app configuration; replaces app.module.ts, registers providers (router, http client, etc.)
+
+src/app/app.ts - the root component of the application; everything else renders inside it via <router-outlet>
+
+src/index.html - the single HTML page the browser loads; contains <app-root> where Angular mounts the app
+
+dist/student-course-portal/browser/main-*.js - the compiled application code (all TypeScript compiled into one bundle) that the browser actually loads and runs
+
+angular.json budgets - initial (500kB warn/1MB error): caps total JS bundle size so app doesn't silently grow bloated; anyComponentStyle (4kB warn/8kB error): caps per-component CSS file size
