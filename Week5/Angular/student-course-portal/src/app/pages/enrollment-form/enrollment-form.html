@@ -1,0 +1,33 @@
+<form #enrollForm="ngForm" (ngSubmit)="onSubmit(enrollForm)">
+  <div>
+    <label>Student Name:</label>
+    <input type="text" name="studentName" [(ngModel)]="studentName">
+  </div>
+
+  <div>
+    <label>Student Email:</label>
+    <input type="email" name="studentEmail" [(ngModel)]="studentEmail">
+  </div>
+
+  <div>
+    <label>Course ID:</label>
+    <input type="number" name="courseId" [(ngModel)]="courseId">
+  </div>
+
+  <div>
+    <label>Preferred Semester:</label>
+    <select name="preferredSemester" [(ngModel)]="preferredSemester">
+      <option value="Odd">Odd</option>
+      <option value="Even">Even</option>
+    </select>
+  </div>
+
+  <div>
+    <label>
+      <input type="checkbox" name="agreeToTerms" [(ngModel)]="agreeToTerms">
+      Agree to Terms
+    </label>
+  </div>
+
+  <button type="submit" [disabled]="enrollForm.invalid">Submit</button>
+</form>
