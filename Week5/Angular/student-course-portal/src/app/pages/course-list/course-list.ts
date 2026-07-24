@@ -16,7 +16,9 @@ export class CourseList implements OnInit {
   allCourses: Course[] = [];
   courses: Course[] = [];
   isLoading = true;
+  errorMessage = '';
   searchTerm = '';
+  newCourseName = '';
 
   constructor(
     private courseService: CourseService,
@@ -25,18 +27,30 @@ export class CourseList implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.allCourses = this.courseService.getCourses();
-    this.courses = this.allCourses;
+    this.loadCourses();
+  }
 
-    const search = this.route.snapshot.queryParamMap.get('search');
-    if (search) {
-      this.searchTerm = search;
-      this.applyFilter();
-    }
+  loadCourses() {
+    this.isLoading = true;
+    this.courseService.getCourses().subscribe({
+      next: (courses) => {
+        this.allCourses = courses;
+        this.courses = courses;
 
-    setTimeout(() => {
-      this.isLoading = false;
-    }, 1500);
+        const search = this.route.snapshot.queryParamMap.get('search');
+        if (search) {
+          this.searchTerm = search;
+          this.applyFilter();
+        }
+      },
+      error: (err) => {
+        this.errorMessage = err.message || 'Failed to load courses. Please try again.';
+        this.isLoading = false;
+      },
+      complete: () => {
+        this.isLoading = false;
+      }
+    });
   }
 
   onSearchChange() {
@@ -47,6 +61,31 @@ export class CourseList implements OnInit {
   applyFilter() {
     const term = this.searchTerm.toLowerCase();
     this.courses = this.allCourses.filter(c => c.name.toLowerCase().includes(term));
+  }
+
+  addNewCourse() {
+    if (!this.newCourseName.trim()) return;
+    this.courseService.createCourse({
+      name: this.newCourseName,
+      code: 'NEW101',
+      credits: 3,
+      gradeStatus: 'pending'
+    }).subscribe({
+      next: () => {
+        this.newCourseName = '';
+        this.loadCourses();
+      },
+      error: (err) => {
+        this.errorMessage = 'Failed to add course.';
+      }
+    });
+  }
+
+  deleteCourse(id: number | string) {
+    this.courseService.deleteCourse(id).subscribe({
+      next: () => this.loadCourses(),
+      error: () => this.errorMessage = 'Failed to delete course.'
+    });
   }
 
   trackByCourseId(index: number, course: any) {

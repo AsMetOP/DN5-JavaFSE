@@ -1,0 +1,41 @@
+{
+  "courses": [
+    {
+      "id": "1",
+      "name": "Data Structures",
+      "code": "CS101",
+      "credits": 4,
+      "gradeStatus": "passed"
+    },
+    {
+      "id": "2",
+      "name": "Operating Systems",
+      "code": "CS102",
+      "credits": 3,
+      "gradeStatus": "failed"
+    },
+    {
+      "id": "3",
+      "name": "Database Systems",
+      "code": "CS103",
+      "credits": 4,
+      "gradeStatus": "passed"
+    },
+    {
+      "name": "Deep Learning",
+      "code": "NEW101",
+      "credits": 3,
+      "gradeStatus": "pending",
+      "id": "GVz5uhYujkg"
+    }
+  ],
+  "students": [
+    {
+      "id": "1",
+      "name": "Asmet",
+      "email": "asmetranjan25@gmail.com"
+    }
+  ],
+  "enrollments": [],
+  "$schema": "./node_modules/json-server/schema.json"
+}

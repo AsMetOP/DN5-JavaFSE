@@ -6,27 +6,29 @@ import { Course } from '../models/course.model';
   providedIn: 'root'
 })
 export class EnrollmentService {
-  private enrolledCourseIds: number[] = [];
+  private enrolledCourseIds: (number | string)[] = [];
 
   constructor(private courseService: CourseService) {}
 
-  enroll(courseId: number): void {
+  enroll(courseId: number | string): void {
     if (!this.enrolledCourseIds.includes(courseId)) {
       this.enrolledCourseIds.push(courseId);
     }
   }
 
-  unenroll(courseId: number): void {
+  unenroll(courseId: number | string): void {
     this.enrolledCourseIds = this.enrolledCourseIds.filter(id => id !== courseId);
   }
 
-  isEnrolled(courseId: number): boolean {
+  isEnrolled(courseId: number | string): boolean {
     return this.enrolledCourseIds.includes(courseId);
   }
 
   getEnrolledCourses(): Course[] {
-    return this.enrolledCourseIds
-      .map(id => this.courseService.getCourseById(id))
-      .filter((c): c is Course => c !== undefined);
+    // NOTE: getCourseById now returns an Observable (HTTP call), so this
+    // synchronous method no longer works as-is. We'll need to refactor
+    // this once we get to Task 2 - for now, return an empty array to
+    // keep the app compiling.
+    return [];
   }
 }
