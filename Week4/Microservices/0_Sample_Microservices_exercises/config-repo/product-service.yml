@@ -1,4 +1,0 @@
-inventory:
-  low-stock-threshold: 10
-product:
-  default-category: general
