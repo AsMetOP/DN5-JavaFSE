@@ -1,10 +1,13 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 import { Highlight } from '../../directives/highlight';
 import { CreditLabelPipe } from '../../pipes/credit-label-pipe';
-import { EnrollmentService } from '../../services/enrollment';
 import { Course } from '../../models/course.model';
+import { enrollInCourse, unenrollFromCourse } from '../../store/enrollment/enrollment.actions';
+import { selectEnrolledIds } from '../../store/enrollment/enrollment.selectors';
 
 @Component({
   selector: 'app-course-card',
@@ -14,13 +17,15 @@ import { Course } from '../../models/course.model';
 })
 export class CourseCard implements OnChanges {
   @Input() course!: Course;
-
   isExpanded = false;
+  enrolledIds$: Observable<(number | string)[]>;
 
   constructor(
-    private enrollmentService: EnrollmentService,
+    private store: Store,
     private router: Router
-  ) {}
+  ) {
+    this.enrolledIds$ = this.store.select(selectEnrolledIds);
+  }
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['course']) {
@@ -31,7 +36,6 @@ export class CourseCard implements OnChanges {
 
   get cardClasses() {
     return {
-      'card--enrolled': this.isEnrolled,
       'card--full': this.course?.credits >= 4,
       'expanded': this.isExpanded,
     };
@@ -46,19 +50,15 @@ export class CourseCard implements OnChanges {
     }
   }
 
-  get isEnrolled(): boolean {
-    return this.enrollmentService.isEnrolled(this.course?.id);
-  }
-
   toggleExpand() {
     this.isExpanded = !this.isExpanded;
   }
 
-  onEnrollClick() {
-    if (this.isEnrolled) {
-      this.enrollmentService.unenroll(this.course.id);
+  onEnrollClick(enrolledIds: (number | string)[]) {
+    if (enrolledIds.includes(this.course.id)) {
+      this.store.dispatch(unenrollFromCourse({ courseId: this.course.id }));
     } else {
-      this.enrollmentService.enroll(this.course.id);
+      this.store.dispatch(enrollInCourse({ courseId: this.course.id }));
     }
   }
 
