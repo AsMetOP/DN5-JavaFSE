@@ -1,0 +1,11 @@
+PS D:\DN5-JavaFSE\Week5\Angular\student-course-portal> ng build
+Initial chunk files   | Names             |  Raw size | Estimated transfer size
+chunk-5QXIBZTH.js     | -                 | 288.39 kB |                72.47 kB
+polyfills-5CFQRCPP.js | polyfills         |  34.59 kB |                11.33 kB
+main-I4HALN3J.js      | main              |  12.77 kB |                 3.50 kB
+styles-5INURTSO.css   | styles            |   0 bytes |                 0 bytes
+
+                      | Initial total     | 335.74 kB |                87.31 kB
+
+Lazy chunk files      | Names             |  Raw size | Estimated transfer size
+chunk-F7OHJFAR.js     | enrollment-module |   7.36 kB |                 2.17 kB

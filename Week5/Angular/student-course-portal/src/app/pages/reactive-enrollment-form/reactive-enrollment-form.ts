@@ -4,8 +4,8 @@ import {
   AbstractControl, FormArray, FormBuilder, FormControl, FormGroup,
   ReactiveFormsModule, ValidationErrors, Validators
 } from '@angular/forms';
+import { HasUnsavedChanges } from '../../guards/unsaved-changes-guard';
 
-// Custom sync validator: disallows courseId values starting with 'XX'
 export function noCourseCode(control: AbstractControl): ValidationErrors | null {
   const value = control.value;
   if (value && String(value).startsWith('XX')) {
@@ -14,7 +14,6 @@ export function noCourseCode(control: AbstractControl): ValidationErrors | null 
   return null;
 }
 
-// Custom async validator: simulates a server check - flags emails containing 'test@'
 export function simulateEmailCheck(control: AbstractControl): Promise<ValidationErrors | null> {
   return new Promise((resolve) => {
     setTimeout(() => {
@@ -33,7 +32,7 @@ export function simulateEmailCheck(control: AbstractControl): Promise<Validation
   templateUrl: './reactive-enrollment-form.html',
   styleUrl: './reactive-enrollment-form.css',
 })
-export class ReactiveEnrollmentForm implements OnInit {
+export class ReactiveEnrollmentForm implements OnInit, HasUnsavedChanges {
   enrollForm!: FormGroup;
 
   constructor(private fb: FormBuilder) {}
@@ -49,10 +48,6 @@ export class ReactiveEnrollmentForm implements OnInit {
     });
   }
 
-  // Typed getter is better than casting in the template (e.g.
-  // $any(enrollForm.get('additionalCourses')).controls) because it keeps
-  // type safety and autocomplete in the component class, and avoids
-  // repeating the cast every time the template needs the array.
   get additionalCourses(): FormArray {
     return this.enrollForm.get('additionalCourses') as FormArray;
   }
@@ -63,6 +58,10 @@ export class ReactiveEnrollmentForm implements OnInit {
 
   removeCourse(index: number) {
     this.additionalCourses.removeAt(index);
+  }
+
+  hasUnsavedChanges(): boolean {
+    return this.enrollForm.dirty;
   }
 
   onSubmit() {

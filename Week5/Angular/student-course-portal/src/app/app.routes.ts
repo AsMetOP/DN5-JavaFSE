@@ -3,10 +3,9 @@ import { Home } from './pages/home/home';
 import { CoursesLayout } from './pages/courses-layout/courses-layout';
 import { CourseList } from './pages/course-list/course-list';
 import { CourseDetail } from './pages/course-detail/course-detail';
-import { EnrollmentForm } from './pages/enrollment-form/enrollment-form';
-import { ReactiveEnrollmentForm } from './pages/reactive-enrollment-form/reactive-enrollment-form';
 import { StudentProfile } from './pages/student-profile/student-profile';
 import { NotFound } from './pages/not-found/not-found';
+import { authGuard } from './guards/auth-guard';
 
 export const routes: Routes = [
   { path: '', component: Home },
@@ -18,8 +17,10 @@ export const routes: Routes = [
       { path: ':id', component: CourseDetail },
     ],
   },
-  { path: 'enroll', component: EnrollmentForm },
-  { path: 'enroll-reactive', component: ReactiveEnrollmentForm },
-  { path: 'profile', component: StudentProfile },
+  {
+    path: 'enroll',
+    loadChildren: () => import('./features/enrollment/enrollment-module').then(m => m.EnrollmentModule),
+  },
+  { path: 'profile', component: StudentProfile, canActivate: [authGuard] },
   { path: '**', component: NotFound },
 ];
