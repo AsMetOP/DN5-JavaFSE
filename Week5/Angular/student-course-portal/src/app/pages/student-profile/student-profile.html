@@ -1,9 +1,11 @@
 <h2>My Enrolled Courses</h2>
 
-<div *ngIf="enrolledCourses.length === 0">
-  <p>You haven't enrolled in any courses yet.</p>
-</div>
+<ng-container *ngIf="enrolledCourses$ | async as enrolledCourses">
+  <div *ngIf="enrolledCourses.length === 0">
+    <p>You haven't enrolled in any courses yet.</p>
+  </div>
 
-<div *ngFor="let course of enrolledCourses">
-  <p>{{ course.name }} ({{ course.code }}) - {{ course.credits }} credits</p>
-</div>
+  <div *ngFor="let course of enrolledCourses">
+    <p>{{ course.name }} ({{ course.code }}) - {{ course.credits }} credits</p>
+  </div>
+</ng-container>

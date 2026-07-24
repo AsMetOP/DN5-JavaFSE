@@ -3,6 +3,18 @@
   <p>Code: {{ course.code }}</p>
   <p>Credits: {{ course.credits }}</p>
   <p>Grade Status: {{ course.gradeStatus }}</p>
+
+  <h3>Enrolled Students</h3>
+  <ng-container *ngIf="enrolledStudents$ | async as students">
+    <div *ngIf="students.length === 0">
+      <p>No students enrolled in this course.</p>
+    </div>
+    <ul>
+      <li *ngFor="let student of students">
+        {{ student.name }} ({{ student.email }})
+      </li>
+    </ul>
+  </ng-container>
 </div>
 <ng-template #notFound>
   <p>Course not found.</p>
