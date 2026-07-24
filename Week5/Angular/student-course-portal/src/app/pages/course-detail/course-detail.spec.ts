@@ -1,5 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { ActivatedRoute } from '@angular/router';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { CourseDetail } from './course-detail';
 
 describe('CourseDetail', () => {
@@ -8,9 +10,16 @@ describe('CourseDetail', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CourseDetail]
-    })
-    .compileComponents();
+      imports: [CourseDetail],
+      providers: [
+        provideHttpClient(),
+        provideHttpClientTesting(),
+        {
+          provide: ActivatedRoute,
+          useValue: { snapshot: { paramMap: { get: () => '1' } }, paramMap: { pipe: () => ({ subscribe: () => {} }) } }
+        }
+      ]
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CourseDetail);
     component = fixture.componentInstance;
