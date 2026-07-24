@@ -1,0 +1,11 @@
+.global-spinner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 8px;
+  background: #ffeb3b;
+  text-align: center;
+  font-weight: bold;
+  z-index: 9999;
+}
