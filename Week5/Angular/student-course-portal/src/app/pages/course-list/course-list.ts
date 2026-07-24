@@ -2,9 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { Observable, combineLatest, BehaviorSubject } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { CourseCard } from '../../components/course-card/course-card';
 import { CourseService } from '../../services/course';
 import { Course } from '../../models/course.model';
+import { loadCourses } from '../../store/course/course.actions';
+import { selectAllCourses, selectCoursesLoading, selectCoursesError } from '../../store/course/course.selectors';
 
 @Component({
   selector: 'app-course-list',
@@ -13,54 +18,45 @@ import { Course } from '../../models/course.model';
   styleUrl: './course-list.css',
 })
 export class CourseList implements OnInit {
-  allCourses: Course[] = [];
-  courses: Course[] = [];
-  isLoading = true;
-  errorMessage = '';
+  courses$: Observable<Course[]>;
+  isLoading$: Observable<boolean>;
+  errorMessage$: Observable<string | null>;
+  filteredCourses$!: Observable<Course[]>;
+
   searchTerm = '';
   newCourseName = '';
+  private searchTermValue$ = new BehaviorSubject<string>('');
 
   constructor(
+    private store: Store,
     private courseService: CourseService,
     private router: Router,
     private route: ActivatedRoute
-  ) {}
-
-  ngOnInit() {
-    this.loadCourses();
+  ) {
+    this.courses$ = this.store.select(selectAllCourses);
+    this.isLoading$ = this.store.select(selectCoursesLoading);
+    this.errorMessage$ = this.store.select(selectCoursesError);
   }
 
-  loadCourses() {
-    this.isLoading = true;
-    this.courseService.getCourses().subscribe({
-      next: (courses) => {
-        this.allCourses = courses;
-        this.courses = courses;
+  ngOnInit() {
+    const search = this.route.snapshot.queryParamMap.get('search');
+    if (search) {
+      this.searchTerm = search;
+    }
+    this.searchTermValue$.next(this.searchTerm);
 
-        const search = this.route.snapshot.queryParamMap.get('search');
-        if (search) {
-          this.searchTerm = search;
-          this.applyFilter();
-        }
-      },
-      error: (err) => {
-        this.errorMessage = err.message || 'Failed to load courses. Please try again.';
-        this.isLoading = false;
-      },
-      complete: () => {
-        this.isLoading = false;
-      }
-    });
+    this.filteredCourses$ = combineLatest([this.courses$, this.searchTermValue$]).pipe(
+      map(([courses, term]) =>
+        courses.filter(c => c.name.toLowerCase().includes(term.toLowerCase()))
+      )
+    );
+
+    this.store.dispatch(loadCourses());
   }
 
   onSearchChange() {
     this.router.navigate(['courses'], { queryParams: { search: this.searchTerm || null } });
-    this.applyFilter();
-  }
-
-  applyFilter() {
-    const term = this.searchTerm.toLowerCase();
-    this.courses = this.allCourses.filter(c => c.name.toLowerCase().includes(term));
+    this.searchTermValue$.next(this.searchTerm);
   }
 
   addNewCourse() {
@@ -73,18 +69,16 @@ export class CourseList implements OnInit {
     }).subscribe({
       next: () => {
         this.newCourseName = '';
-        this.loadCourses();
+        this.store.dispatch(loadCourses());
       },
-      error: (err) => {
-        this.errorMessage = 'Failed to add course.';
-      }
+      error: () => {}
     });
   }
 
   deleteCourse(id: number | string) {
     this.courseService.deleteCourse(id).subscribe({
-      next: () => this.loadCourses(),
-      error: () => this.errorMessage = 'Failed to delete course.'
+      next: () => this.store.dispatch(loadCourses()),
+      error: () => {}
     });
   }
 
